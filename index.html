@@ -264,7 +264,7 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
       <ul>
         <li><strong>No booking-site service fee</strong><span>You pay the nightly rate and the cleaning fee shown below.</span></li>
         <li><strong>Talk to the owners</strong><span>Questions about beds, parking or the drive up go straight to Hoa, a Superhost for 8 years who usually replies within an hour.</span></li>
-        <li><strong>Your request, our confirmation</strong><span>Send your dates. We'll confirm availability and the final total before you pay anything.</span></li>
+        <li><strong>Held, not charged, until we approve</strong><span>Book online and Stripe holds your card. We approve within 24 hours, and only then is it charged.</span></li>
       </ul>
     </div>
   </section>
@@ -385,8 +385,8 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
   <section class="book" id="book">
     <div class="wrap book-grid">
       <div>
-        <h2>Check dates and send a request</h2>
-        <p class="lede">Pick your dates to see an estimate. We'll confirm availability and your final total by email, usually within a day.</p>
+        <h2>Check dates and book</h2>
+        <p class="lede">Pick your dates to see your total, then book through Stripe's secure checkout. Your card is held, not charged, until we approve your stay, usually within 24 hours.</p>
         <table class="rates" aria-label="Nightly rates">
           <tr><td>Sunday to Thursday nights</td><td>$600 / night</td></tr>
           <tr><td>Friday and Saturday nights</td><td>$1,400 / night</td></tr>
@@ -415,11 +415,11 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
           <label class="field">Anything we should know? <small>Optional</small><textarea name="notes" rows="3" placeholder="Arrival time, ski plans, kids' ages, questions"></textarea></label>
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
           <p class="err" id="err"></p>
-          <button class="btn btn-book" type="submit">Send booking request</button>
-          <p class="fine">Nothing is charged now. We confirm first.</p>
+          <button class="btn btn-book" type="submit">Continue to secure checkout</button>
+          <p class="fine">Payments by Stripe. Your card is only charged once we approve.</p>
         </form>
         <div class="done" role="status">
-          <h3>Request sent</h3>
+          <h3 id="done-title">Request sent</h3>
           <p id="done-copy">Thanks! We'll email you to confirm availability and your total.</p>
         </div>
       </div>
@@ -441,7 +441,7 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
       <div style="margin-top:28px">
         <details><summary>What are check-in and check-out times?</summary><p>Check-in is from [4:00 PM] and check-out is by [11:00 AM]. Check-in is self-serve with a keypad, and we send the code before you arrive.</p></details>
         <details><summary>Is there a minimum stay?</summary><p>[Two nights on weekends, three nights on holiday weekends.]</p></details>
-        <details><summary>How do payment and deposits work?</summary><p>Once we confirm your dates, we send a secure payment link. [A refundable damage deposit of $___ is held and released after checkout.]</p></details>
+        <details><summary>How does payment work?</summary><p>You pay through Stripe's secure checkout. Your card is held for the full amount but not charged. We review every booking and approve it within 24 hours, and only then is your card charged. If we can't host you, the hold is released and you pay nothing. [A refundable damage deposit of $___ is charged before arrival and returned after checkout.]</p></details>
         <details><summary>What is the cancellation policy?</summary><p>[Full refund up to 30 days before arrival; 50% up to 14 days before.]</p></details>
         <details><summary>How many people can stay?</summary><p>Up to 16 guests, including children. The Town of The Blue Mountains enforces this limit, with fines of $500 to $1,000.</p></details>
         <details><summary>Can we bring a pet?</summary><p>Yes. There's a $100 cleaning fee per pet, and pets need to be added to your booking.</p></details>
@@ -532,9 +532,31 @@ document.getElementById("quick").addEventListener("submit",e=>{
   book.name.focus({preventScroll:true});
 });
 
+const $=id=>document.getElementById(id);
+const fmtDay=v=>new Date(v+"T12:00").toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
+function showErr(html){ const err=$("err"); err.innerHTML=html; err.style.display=html?"block":"none"; }
+function showDone(title,text){ $("done-title").textContent=title; $("done-copy").textContent=text; $("formbox").classList.add("sent"); $("book").scrollIntoView(); }
+
+// Booked dates from Airbnb and this website, to warn guests before checkout.
+let booked=null;
+fetch("/api/availability").then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.booked){ booked=j.booked; checkDates(); } }).catch(()=>{});
+function checkDates(){
+  if(!booked||!book.in.value||!book.out.value) return true;
+  const clash=booked.some(([s,e])=>book.in.value<e&&s<book.out.value);
+  showErr(clash?"Some of those nights are already booked. Try different dates.":"");
+  return !clash;
+}
+book.in.addEventListener("change",checkDates); book.out.addEventListener("change",checkDates);
+
+// Email the owner (via FormSubmit). Used for new holds and as a fallback request.
+async function notifyOwner(subject,fields){
+  const r=await fetch(BOOKING_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:subject,_template:"table",...fields})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok||String(j.success)==="false") throw new Error(j.message||r.status);
+}
+
 book.addEventListener("submit",async e=>{
   e.preventDefault();
-  const err=document.getElementById("err");
   const btn=book.querySelector('button[type="submit"]');
   const q=quote(book.in.value,book.out.value);
   let msg="";
@@ -542,37 +564,52 @@ book.addEventListener("submit",async e=>{
   else if(q.error) msg=q.error;
   else if(!book.name.value.trim()) msg="Add your full name so we know who's booking.";
   else if(!book.email.checkValidity()||!book.email.value) msg="Add a valid email so we can confirm your stay.";
-  err.textContent=msg; err.style.display=msg?"block":"none";
-  if(msg) return;
+  showErr(msg);
+  if(msg||!checkDates()) return;
   if(book._honey.value) return; // spam bot
 
-  const fmt=v=>new Date(v+"T12:00").toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
-  const data={
-    _subject:`Booking request: ${fmt(book.in.value)} to ${fmt(book.out.value)} (${book.guests.value} guests)`,
-    _template:"table",
-    Name:book.name.value.trim(),
-    email:book.email.value.trim(),
-    Phone:book.phone.value.trim()||"Not given",
-    "Check in":fmt(book.in.value),
-    "Check out":fmt(book.out.value),
-    Nights:q.nights,
-    Guests:book.guests.value,
-    Pets:book.pets.value,
-    "Estimate (CAD)":money(q.total)+` (${q.wk} weeknight, ${q.we} weekend, cleaning${q.pets?", pet fee":""})`,
-    Notes:book.notes.value.trim()||"None"
-  };
-  btn.disabled=true; btn.textContent="Sending…";
+  const body={checkin:book.in.value,checkout:book.out.value,guests:book.guests.value,pets:book.pets.value,
+    name:book.name.value.trim(),email:book.email.value.trim(),phone:book.phone.value.trim(),notes:book.notes.value.trim()};
+  btn.disabled=true; btn.textContent="Opening secure checkout…";
   try{
-    const r=await fetch(BOOKING_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)});
-    const j=await r.json().catch(()=>({}));
-    if(!r.ok||String(j.success)==="false") throw new Error(j.message||r.status);
-    document.getElementById("done-copy").textContent=`Thanks, ${data.Name.split(" ")[0]}! We've got your request for ${data["Check in"]} to ${data["Check out"]}. We'll email ${data.email} to confirm availability and your total, usually within a day.`;
-    document.getElementById("formbox").classList.add("sent");
+    let r=null;
+    try{ r=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}); }catch(_){}
+    const j=r?await r.json().catch(()=>null):null;
+    if(j&&j.url){ location.href=j.url; return; }
+    if(j&&j.error){ showErr(j.error); return; }
+    // Checkout isn't available on this host: send the request by email instead.
+    await notifyOwner(`Booking request: ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)} (${body.guests} guests)`,{
+      Name:body.name,email:body.email,Phone:body.phone||"Not given","Check in":fmtDay(body.checkin),"Check out":fmtDay(body.checkout),
+      Nights:q.nights,Guests:body.guests,Pets:body.pets,"Estimate (CAD)":money(q.total),Notes:body.notes||"None"});
+    showDone("Request sent",`Thanks, ${body.name.split(" ")[0]}! We've got your request for ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)}. We'll email ${body.email} to confirm availability and your total, usually within a day.`);
   }catch(x){
-    err.innerHTML=`Your request didn't go through. Try again, or email us at <a href="mailto:${OWNER_EMAIL}">${OWNER_EMAIL}</a>.`;
-    err.style.display="block";
-  }finally{ btn.disabled=false; btn.textContent="Send booking request"; }
+    showErr(`Your booking didn't go through. Try again, or email us at <a href="mailto:${OWNER_EMAIL}">${OWNER_EMAIL}</a>.`);
+  }finally{ btn.disabled=false; btn.textContent="Continue to secure checkout"; }
 });
+
+// Back from Stripe checkout.
+(async()=>{
+  const p=new URLSearchParams(location.search);
+  if(p.get("booking")==="cancelled"){ showErr("Checkout was cancelled, so your card wasn't held. Your dates are still free to book."); return; }
+  const id=p.get("session_id");
+  if(p.get("booking")!=="held"||!id) return;
+  try{
+    const r=await fetch("/api/booking?session_id="+encodeURIComponent(id)); if(!r.ok) throw 0;
+    const d=await r.json();
+    showDone("Your card is on hold",`Thanks, ${(d.name||"").split(" ")[0]}! We've received your booking for ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)}. Your card is held for ${money(d.total)} but not charged. We'll review it and email ${d.email} within 24 hours. Your card is only charged once we approve.`);
+    let sent=false; try{ sent=sessionStorage.getItem("notified-"+id)==="1"; }catch(_){}
+    if(!sent){
+      await notifyOwner(`${d.live?"":"[TEST] "}NEW HOLD, approve in Stripe: ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)} (${d.guests} guests)`,{
+        Action:"Open Stripe > Payments > Uncaptured. Click Capture to approve, or Cancel to decline. Holds expire after 7 days.",
+        Name:d.name,email:d.email,Phone:d.phone||"Not given","Check in":fmtDay(d.checkin),"Check out":fmtDay(d.checkout),
+        Nights:d.nights,Guests:d.guests,Pets:d.pets,"Amount held (CAD)":money(d.total),Notes:d.notes||"None"}).catch(()=>{});
+      try{ sessionStorage.setItem("notified-"+id,"1"); }catch(_){}
+    }
+    history.replaceState(null,"",location.pathname+"#book");
+  }catch(_){
+    showDone("Your card is on hold","Thanks! We've received your booking. Your card is held but not charged. We'll email you within 24 hours to confirm.");
+  }
+})();
 
 // Lightbox
 const shots=[...document.querySelectorAll("#gallery button")];
