@@ -53,7 +53,7 @@ export default async (req) => {
         mode: "payment",
         customer_email: email,
         line_items: items,
-        payment_method_types: ["card"],
+        allowed_payment_method_types: ["card"], // card only: holds (manual capture) need cards
         payment_intent_data: {
           capture_method: "manual",
           description: `Georgian Bay View Chalet: ${fmt(b.checkin)} to ${fmt(b.checkout)}, ${guests} guests`,
