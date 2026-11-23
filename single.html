@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Georgian Bay View Chalet</title>
+<meta name="description" content="Book Georgian Bay View Chalet directly: 6 bedrooms, 3 bathrooms, sleeps 16, private hot tub and Georgian Bay views in Swiss Meadows, 2 minutes from Blue Mountain's lifts." />
+<meta name="theme-color" content="#1d4a63" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Young+Serif&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --mist:#eef3f4; --paper:#ffffff; --line:#cddbe0;
+  --ink:#10293a; --ink-soft:#4a6170;
+  --bay:#1d4a63; --bay-deep:#123448; --pine:#3f5f4e;
+  --sunset:#f2a15f; --sunset-deep:#e2873c;
+  --serif:"Young Serif", Georgia, serif;
+  --sans:"Figtree", system-ui, sans-serif;
+  --wrap:1180px; --r-sm:8px; --r-lg:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--mist);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+a{color:var(--bay)}
+:focus-visible{outline:3px solid var(--sunset-deep);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.12;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(30px,4.2vw,46px)}
+h3{font-size:22px}
+p{margin:0}
+.wrap{width:min(var(--wrap),100% - 32px);margin-inline:auto}
+.skip{position:absolute;left:-999px;top:8px;background:var(--paper);padding:8px 14px;z-index:50}
+.skip:focus{left:16px}
+
+/* Buttons */
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:13px 24px;font:600 16px/1 var(--sans);cursor:pointer;text-decoration:none;transition:background .15s}
+.btn-book{background:var(--sunset);color:var(--ink)}
+.btn-book:hover{background:var(--sunset-deep)}
+.btn-quiet{background:transparent;color:var(--bay);border:1.5px solid var(--bay)}
+.btn-quiet:hover{background:var(--bay);color:#fff}
+
+/* Header */
+.top{position:absolute;inset:0 0 auto;z-index:10;color:#fff}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.brand{color:#fff;text-decoration:none;font-family:var(--serif);font-size:20px;line-height:1.1}
+.brand small{display:block;font:500 13px/1.3 var(--sans);opacity:.85;letter-spacing:.01em}
+.top nav{display:flex;gap:26px;align-items:center}
+.top nav a{color:#fff;text-decoration:none;font-weight:500;font-size:15px}
+.top nav a:hover{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:820px){.top nav a:not(.btn){display:none}.top .btn{padding:10px 16px;font-size:15px}}
+
+/* Hero */
+.hero{position:relative;min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,30,44,.55) 0%,rgba(9,30,44,.08) 30%,rgba(9,30,44,0) 50%,rgba(9,30,44,.55) 100%);z-index:1}
+.hero-copy{position:relative;z-index:2;padding-top:130px;margin-bottom:auto}
+.hero h1{font-size:clamp(40px,6.6vw,84px);max-width:11ch;text-shadow:0 2px 24px rgba(0,30,50,.35)}
+.hero-sub{margin-top:18px;font-size:clamp(17px,1.6vw,20px);max-width:36ch;text-shadow:0 1px 12px rgba(0,30,50,.45)}
+
+/* Quick booking bar sitting on the hero */
+.quick{position:relative;z-index:3;margin-bottom:36px;background:var(--paper);color:var(--ink);border-radius:var(--r-lg);padding:14px;display:grid;grid-template-columns:1fr 1fr .8fr auto;gap:10px;box-shadow:0 18px 50px rgba(8,30,44,.28)}
+.quick label{display:flex;flex-direction:column;gap:2px;padding:8px 14px;border-radius:var(--r-sm);background:var(--mist);font-size:13px;font-weight:600;color:var(--ink-soft)}
+.quick label{min-width:0}
+.quick input,.quick select{width:100%;border:0;background:transparent;font:500 16px var(--sans);color:var(--ink);padding:2px 0;min-width:0}
+.quick .btn{padding-inline:28px}
+@media (max-width:760px){.quick{grid-template-columns:1fr 1fr}.quick .guests{grid-column:1/-1}.quick .btn{grid-column:1/-1;padding-block:15px}}
+
+/* Facts */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.facts div{padding:26px 8px 26px 0}
+.facts strong{display:block;font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.1}
+.facts span{color:var(--ink-soft);font-size:15px}
+@media (max-width:700px){.facts{grid-template-columns:1fr 1fr}}
+
+section{padding-block:clamp(64px,9vw,112px)}
+.lede{max-width:60ch;color:var(--ink-soft);margin-top:14px;font-size:18px}
+
+/* Why direct */
+.direct{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start}
+.direct ul{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.direct li{padding-left:22px;border-left:3px solid var(--sunset)}
+.direct li strong{display:block;font-size:18px}
+.direct li span{color:var(--ink-soft)}
+.direct .btn{margin-top:28px}
+@media (max-width:820px){.direct{grid-template-columns:1fr}}
+
+/* Gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:10px;margin-top:36px}
+.gallery button{all:unset;cursor:zoom-in;border-radius:var(--r-sm);overflow:hidden;position:relative}
+.gallery button:focus-visible{outline:3px solid var(--sunset-deep);outline-offset:3px}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gallery button:hover img{transform:scale(1.03)}
+.gallery .g-wide{grid-column:span 2;grid-row:span 2}
+.gallery .g-tall{grid-row:span 2}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;background:rgba(16,41,58,.78);color:#fff;font-size:13px;padding:4px 10px;border-radius:999px}
+@media (max-width:820px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:160px}.gallery .g-wide{grid-column:1/-1}}
+
+/* Sleeping: house cross-section */
+.sleep-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.house{margin-top:40px;position:relative;background:var(--paper);border-radius:var(--r-lg);padding:clamp(20px,3vw,36px);padding-top:clamp(56px,7vw,84px)}
+.house::before{content:"";position:absolute;left:50%;top:0;width:min(560px,80%);height:clamp(38px,5vw,60px);transform:translate(-50%,-62%);background:var(--bay);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.level{display:grid;grid-template-columns:150px 1fr;gap:20px;padding-block:22px;border-top:1px solid var(--line)}
+.level:first-of-type{border-top:0;padding-top:0}
+.level h3{font-size:20px}
+.level h3 small{display:block;font:500 14px/1.4 var(--sans);color:var(--ink-soft);margin-top:4px}
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.room{border:1.5px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;background:var(--mist)}
+.room strong{display:block;font-size:16px}
+.room span{font-size:14px;color:var(--ink-soft)}
+.beds{display:flex;gap:6px;margin-top:10px}
+.bed{height:22px;border:2px solid var(--bay);border-radius:4px;position:relative}
+.bed::before{content:"";position:absolute;top:3px;left:3px;width:7px;height:5px;border-radius:2px;background:var(--bay)}
+.bed.q{width:44px}.bed.d{width:38px}.bed.s{width:24px}
+.sleep-total{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:15px}
+.sleep-total b{color:var(--ink)}
+@media (max-width:640px){.level{grid-template-columns:1fr;gap:12px}}
+
+/* Evenings */
+.evening{background:var(--bay-deep);color:#e6eef2}
+.evening .wrap{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:clamp(32px,6vw,90px);align-items:center}
+.evening video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:var(--r-lg);background:#0b2231}
+.evening h2{color:#fff}
+.evening p{margin-top:18px;max-width:46ch}
+.evening ul{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.evening li{display:flex;gap:12px;align-items:baseline}
+.evening li::before{content:"";flex:none;width:18px;height:2px;background:var(--sunset);transform:translateY(-5px)}
+@media (max-width:760px){.evening .wrap{grid-template-columns:1fr}.evening video{max-width:320px;margin-inline:auto}}
+
+/* Amenities */
+.amen{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);margin-top:40px}
+.amen h3{font-size:22px;padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:12px}
+.amen ul{margin:0;padding:0;list-style:none}
+.amen li{padding:9px 0;border-bottom:1px solid var(--line)}
+@media (max-width:820px){.amen{grid-template-columns:1fr}}
+
+/* Location */
+.where{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.where img{border-radius:var(--r-lg);width:100%;aspect-ratio:4/3;object-fit:cover}
+.dist{margin-top:26px;display:grid;gap:0}
+.dist div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.dist b{font-weight:600;white-space:nowrap}
+.note{margin-top:16px;font-size:15px;color:var(--ink-soft)}
+@media (max-width:820px){.where{grid-template-columns:1fr}}
+
+/* Booking */
+.book{background:var(--paper)}
+.book-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,80px);align-items:start}
+.rates{margin-top:28px;border-collapse:collapse;width:100%;max-width:440px}
+.rates td{padding:12px 0;border-bottom:1px solid var(--line)}
+.rates td:last-child{text-align:right;font-weight:600}
+.rates-note{margin-top:12px;font-size:15px;color:var(--ink-soft);max-width:44ch}
+.form{background:var(--mist);border-radius:var(--r-lg);padding:clamp(20px,3vw,32px)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;font-size:14px;font-weight:600}
+.field small{font-weight:400;color:var(--ink-soft)}
+.field input,.field select,.field textarea{font:400 16px var(--sans);color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 12px;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--bay);outline:none;box-shadow:0 0 0 3px rgba(29,74,99,.18)}
+.estimate{background:var(--paper);border-radius:var(--r-sm);padding:16px 18px;margin:6px 0 18px}
+.estimate .line{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:15px}
+.estimate .total{border-top:1.5px solid var(--ink);margin-top:8px;padding-top:10px;font-weight:700;font-size:17px}
+.estimate .empty{color:var(--ink-soft);font-size:15px}
+.form .btn{width:100%;padding-block:16px;font-size:17px}
+.fine{margin-top:12px;font-size:14px;color:var(--ink-soft);text-align:center}
+.done{display:none;text-align:center;padding:30px 10px}
+.done h3{font-size:28px;margin-bottom:10px}
+.form.sent form{display:none}.form.sent .done{display:block}
+.err{color:#a3341b;font-size:14px;margin:-6px 0 12px;display:none}
+.err a{color:inherit}
+.btn:disabled{opacity:.7;cursor:wait}
+@media (max-width:900px){.book-grid{grid-template-columns:1fr}}
+@media (max-width:480px){.row{grid-template-columns:1fr}}
+
+/* Reviews band */
+.reviews{background:var(--pine);color:#fff;text-align:center;padding-block:clamp(56px,7vw,84px)}
+.reviews h2{color:#fff}
+.reviews p{margin:14px auto 26px;max-width:52ch;opacity:.9}
+.reviews .btn-quiet{color:#fff;border-color:#fff}
+.reviews .btn-quiet:hover{background:#fff;color:var(--pine)}
+
+/* FAQ */
+.faq{max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 40px 20px 0;font-weight:600;font-size:18px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:14px;font-size:26px;font-weight:400;color:var(--bay);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:var(--ink-soft);max-width:66ch}
+
+footer{background:var(--ink);color:#c8d6dd;padding-block:48px;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap}
+footer .brand{font-size:22px}
+footer a{color:#fff}
+footer p{margin-top:6px}
+
+/* Lightbox */
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(1200px,94vw);max-height:92vh}
+dialog.lb::backdrop{background:rgba(6,20,30,.9)}
+dialog.lb img{max-height:84vh;width:auto;margin:auto;border-radius:var(--r-sm)}
+dialog.lb p{color:#fff;text-align:center;margin-top:10px}
+.lb-btn{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);color:#fff;border:0;width:48px;height:48px;border-radius:50%;font-size:22px;cursor:pointer}
+.lb-btn:hover{background:rgba(255,255,255,.28)}
+.lb-prev{left:16px}.lb-next{right:16px}
+.lb-close{top:28px;transform:none;right:16px}
+@media (max-width:640px){.hero::before{background:linear-gradient(180deg,rgba(9,30,44,.72) 0%,rgba(9,30,44,.6) 48%,rgba(9,30,44,.2) 66%,rgba(9,30,44,.45) 100%)}}
+.gallery{grid-auto-flow:dense}.gallery .g-span2{grid-column:span 2}
+@media (max-width:820px){.gallery .g-span2{grid-column:1/-1}}
+.room img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;margin-bottom:12px;background:var(--line)}
+.floor-has{list-style:none;margin:12px 0 0;padding:0;font-size:14px;color:var(--ink-soft);display:grid;gap:4px}
+.level{grid-template-columns:230px 1fr}
+@media (max-width:640px){.level{grid-template-columns:1fr}}
+.score{display:flex;justify-content:center;gap:clamp(20px,5vw,56px);flex-wrap:wrap;margin:6px 0 30px}
+.score div{min-width:110px}
+.score strong{display:block;font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.1}
+.score span{font-size:14px;opacity:.85}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Georgian Bay View Chalet<small>Swiss Meadows, The Blue Mountains</small></a>
+    <nav aria-label="Main">
+      <a href="#photos">Photos</a>
+      <a href="#sleeping">Bedrooms</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#location">Location</a>
+      <a class="btn btn-book" href="#book">Check dates</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <img src="img/hero.jpg" alt="Private hot tub on the deck with Georgian Bay on the horizon" fetchpriority="high" />
+    <div class="wrap hero-copy">
+      <h1>Ski all day. Soak with the Bay in view.</h1>
+      <p class="hero-sub">A private 6-bedroom chalet for up to 16 guests, at the top of Blue Mountain and 2 minutes from the lifts.</p>
+    </div>
+    <form class="wrap quick" id="quick" aria-label="Check your dates">
+      <label>Check in<input type="date" name="in" required /></label>
+      <label>Check out<input type="date" name="out" required /></label>
+      <label class="guests">Guests<select name="guests"></select></label>
+      <button class="btn btn-book" type="submit">See your price</button>
+    </form>
+  </div>
+
+  <div class="wrap facts" aria-label="Chalet at a glance">
+    <div><strong>6 bedrooms</strong><span>10 beds, no bunks</span></div>
+    <div><strong>Sleeps 16</strong><span>The whole house is yours</span></div>
+    <div><strong>3 bathrooms</strong><span>One on every floor</span></div>
+    <div><strong>2 minutes</strong><span>to the top lifts by car</span></div>
+  </div>
+
+  <section>
+    <div class="wrap direct">
+      <div>
+        <h2>Book with us directly</h2>
+        <p class="lede">It's the same chalet you'll find on Airbnb, booked straight with the owners instead.</p>
+        <a class="btn btn-quiet" href="https://www.airbnb.ca/h/scenicchalet" rel="noopener">Read our 93 reviews on Airbnb</a>
+      </div>
+      <ul>
+        <li><strong>No booking-site service fee</strong><span>You pay the nightly rate and the cleaning fee shown below.</span></li>
+        <li><strong>Talk to the owners</strong><span>Questions about beds, parking or the drive up go straight to Hoa, a Superhost for 8 years who usually replies within an hour.</span></li>
+        <li><strong>Your request, our confirmation</strong><span>Send your dates. We'll confirm availability and the final total before you pay anything.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="photos" style="padding-top:0">
+    <div class="wrap">
+      <h2>Inside and out</h2>
+      <p class="lede">Tap any photo to see it larger.</p>
+      <div class="gallery" id="gallery">
+        <button class="g-wide" data-i="0"><img src="img/living.jpg" alt="Living room with stone gas fireplace and smart TV" loading="lazy" /><figcaption>Living room</figcaption></button>
+        <button class="g-tall" data-i="1"><img src="img/arcade-closeup.jpg" alt="Street Fighter II arcade machine" loading="lazy" /><figcaption>Arcade</figcaption></button>
+        <button data-i="2"><img src="img/kitchen.jpg" alt="Kitchen island with bar stools and gold pendant lights" loading="lazy" /><figcaption>Kitchen</figcaption></button>
+        <button data-i="3"><img src="img/dining.jpg" alt="Long farmhouse dining table that seats 16" loading="lazy" /><figcaption>Dining for 16</figcaption></button>
+        <button class="g-wide" data-i="4"><img src="img/pool.jpg" alt="Game room with pool table, barnwood bar and foosball" loading="lazy" /><figcaption>Game room</figcaption></button>
+        <button data-i="5"><img src="img/arcades2.jpg" alt="Games lounge with Pac-Man and Street Fighter machines" loading="lazy" /><figcaption>Arcade lounge</figcaption></button>
+        <button data-i="6"><img src="img/foosball.jpg" alt="Foosball table beside the bar, pool table behind" loading="lazy" /><figcaption>Foosball</figcaption></button>
+        <button class="g-wide" data-i="7"><img src="img/deck.jpg" alt="Upper deck with dining table, lounge seating and Bay view" loading="lazy" /><figcaption>Upper deck</figcaption></button>
+        <button data-i="8"><img src="img/hottub-bay.jpg" alt="Private hot tub with Georgian Bay on the horizon" loading="lazy" /><figcaption>Hot tub</figcaption></button>
+        <button data-i="9"><img src="img/lowerlounge.jpg" alt="Lower-level lounge with a long sectional sofa" loading="lazy" /><figcaption>Lower lounge</figcaption></button>
+        <button data-i="10"><img src="img/tub-bath.jpg" alt="Upper bathroom with cedar walls and jetted tub" loading="lazy" /><figcaption>Bathroom</figcaption></button>
+        <button data-i="11"><img src="img/firepit.jpg" alt="Fire pit with Adirondack chairs on the lawn" loading="lazy" /><figcaption>Fire pit</figcaption></button>
+        <button class="g-span2" data-i="12"><img src="img/exterior2.jpg" alt="The chalet with its upper deck and stone chimney" loading="lazy" /><figcaption>The chalet</figcaption></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="sleeping" style="padding-top:0">
+    <div class="wrap">
+      <div class="sleep-head">
+        <div>
+          <h2>Three floors, room by room</h2>
+          <p class="lede">Six bedrooms and a full bathroom on every floor, with a real bed for each of your 16 guests.</p>
+        </div>
+      </div>
+      <div class="house">
+        <div class="level">
+          <div><h3>Upper floor<small>2 bedrooms</small></h3>
+            <ul class="floor-has"><li>Full bathroom</li><li>Private patio off the primary bedroom with a Bay view</li></ul></div>
+          <div class="rooms">
+            <div class="room"><img src="img/bed1.jpg" alt="Primary bedroom with queen bed on the upper floor" loading="lazy" /><strong>Primary bedroom</strong><span>1 queen bed, private patio</span><div class="beds"><i class="bed q"></i></div></div>
+            <div class="room"><img src="img/bed2.jpg" alt="Second upper-floor bedroom with queen bed" loading="lazy" /><strong>Bedroom 2</strong><span>1 queen bed</span><div class="beds"><i class="bed q"></i></div></div>
+          </div>
+        </div>
+        <div class="level">
+          <div><h3>Main floor<small>1 bedroom, fewer stairs</small></h3>
+            <ul class="floor-has"><li>Full kitchen and a dining table for 16</li><li>Living room with gas fireplace and 50" smart TV</li><li>Game room with wet bar</li><li>Full bathroom with laundry</li></ul></div>
+          <div class="rooms">
+            <div class="room"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1090882188048072621/original/d6be9411-c08e-44a6-b763-27dee6137186.jpeg?im_w=720" alt="Main-floor bedroom with two double beds" loading="lazy" /><strong>Bedroom 3</strong><span>2 double beds</span><div class="beds"><i class="bed d"></i><i class="bed d"></i></div></div>
+          </div>
+        </div>
+        <div class="level">
+          <div><h3>Lower level<small>3 bedrooms</small></h3>
+            <ul class="floor-has"><li>Full bathroom</li><li>Lounge with sofa and 50" smart TV</li><li>Second fridge</li></ul></div>
+          <div class="rooms">
+            <div class="room"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1090882188048072621/original/de6df5b4-3b64-49ae-9e2b-89d2b3b02867.jpeg?im_w=720" alt="Lower-level bedroom with two queen beds" loading="lazy" /><strong>Bedroom 4</strong><span>2 queen beds</span><div class="beds"><i class="bed q"></i><i class="bed q"></i></div></div>
+            <div class="room"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1090882188048072621/original/7fa823c2-f8e0-4fd6-bfe3-678d7075b2e8.jpeg?im_w=720" alt="Lower-level bedroom with two single beds" loading="lazy" /><strong>Bedroom 5</strong><span>2 single beds</span><div class="beds"><i class="bed s"></i><i class="bed s"></i></div></div>
+            <div class="room"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1090882188048072621/original/6806ce9a-8e26-40ff-866e-548c868317f2.jpeg?im_w=720" alt="Lower-level bedroom with two single beds" loading="lazy" /><strong>Bedroom 6</strong><span>2 single beds</span><div class="beds"><i class="bed s"></i><i class="bed s"></i></div></div>
+          </div>
+        </div>
+        <div class="sleep-total"><span><b>4</b> queen beds</span><span><b>2</b> double beds</span><span><b>4</b> single beds</span><span><b>3</b> full bathrooms</span><span>Sheets, pillows and towels for everyone</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="evening">
+    <div class="wrap">
+      <video src="img/sunset.mp4" poster="img/sunset-poster.jpg" autoplay muted loop playsinline aria-label="Sunset over Georgian Bay from the upper deck"></video>
+      <div>
+        <h2>Evenings on the upper deck</h2>
+        <p>The oversized upper deck faces Georgian Bay. Fire up the BBQ, eat outside, and stay for the sunset. On a clear night the sky turns orange right along the water.</p>
+        <ul>
+          <li>Natural gas BBQ and outdoor dining</li>
+          <li>Lounge seating facing the Bay</li>
+          <li>Fire pit with Adirondack chairs on the lawn</li>
+          <li>Private hot tub, open 7 am to 11 pm</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="amenities">
+    <div class="wrap">
+      <h2>Plenty to do without leaving</h2>
+      <div class="amen">
+        <div>
+          <h3>Play</h3>
+          <ul><li>Full-size pool table</li><li>Foosball table</li><li>Pac-Man and Street Fighter arcade machines</li><li>Board games</li><li>Wet bar and smart TV in the game room</li></ul>
+        </div>
+        <div>
+          <h3>Unwind</h3>
+          <ul><li>Private hot tub, all year</li><li>Gas fireplace in the living room</li><li>Two lounges, each with a 50" smart TV</li><li>Free Wi-Fi</li></ul>
+        </div>
+        <div>
+          <h3>Cook and stay</h3>
+          <ul><li>Full kitchen with cookware for a big group</li><li>Dining table that seats 16</li><li>Coffee, tea, kettle, toaster and air fryer</li><li>Laundry and a second fridge</li><li>Linens and towels provided</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="location" style="padding-top:0">
+    <div class="wrap where">
+      <img src="img/chairlift.jpg" alt="Chairlift at Blue Mountain under the night-ski lights" loading="lazy" />
+      <div>
+        <h2>At the top of the hill</h2>
+        <p class="lede">The chalet sits in Swiss Meadows, a quiet neighbourhood on top of the Blue Mountain escarpment.</p>
+        <div class="dist">
+          <div><span>Top-of-mountain lift parking at Blue Mountain</span><b>2 min drive</b></div>
+          <div><span>Scenic Caves Nature Adventures</span><b>2 min drive</b></div>
+          <div><span>Parking at the chalet</span><b>Up to 8 cars</b></div>
+          <div><span>Check-in</span><b>Self check-in, keypad</b></div>
+        </div>
+        <p class="note">Winter tires are required for the drive up from about December to April. We share the exact address and arrival instructions once your stay is confirmed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="wrap book-grid">
+      <div>
+        <h2>Check dates and send a request</h2>
+        <p class="lede">Pick your dates to see an estimate. We'll confirm availability and your final total by email, usually within a day.</p>
+        <table class="rates" aria-label="Nightly rates">
+          <tr><td>Sunday to Thursday nights</td><td>$600 / night</td></tr>
+          <tr><td>Friday and Saturday nights</td><td>$1,400 / night</td></tr>
+          <tr><td>Cleaning fee, once per stay</td><td>$350</td></tr>
+          <tr><td>Pet fee, per pet</td><td>$100</td></tr>
+        </table>
+        <p class="rates-note">Prices in Canadian dollars. Holiday rates may differ, and applicable taxes are added when we confirm.</p>
+      </div>
+
+      <div class="form" id="formbox">
+        <form id="booking" novalidate>
+          <div class="row">
+            <label class="field">Check in<input type="date" name="in" required /></label>
+            <label class="field">Check out<input type="date" name="out" required /></label>
+          </div>
+          <div class="row">
+            <label class="field">Guests <small>Including children</small><select name="guests" required></select></label>
+            <label class="field">Pets <small>$100 cleaning fee each</small><select name="pets"><option value="0">No pets</option><option value="1">1 pet</option><option value="2">2 pets</option></select></label>
+          </div>
+          <div class="estimate" id="estimate" aria-live="polite"><p class="empty">Choose your dates to see an estimate.</p></div>
+          <div class="row">
+            <label class="field">Full name<input name="name" autocomplete="name" required /></label>
+            <label class="field">Email<input name="email" type="email" autocomplete="email" required /></label>
+          </div>
+          <label class="field">Phone <small>Optional</small><input name="phone" type="tel" autocomplete="tel" /></label>
+          <label class="field">Anything we should know? <small>Optional</small><textarea name="notes" rows="3" placeholder="Arrival time, ski plans, kids' ages, questions"></textarea></label>
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
+          <p class="err" id="err"></p>
+          <button class="btn btn-book" type="submit">Send booking request</button>
+          <p class="fine">Nothing is charged now. We confirm first.</p>
+        </form>
+        <div class="done" role="status">
+          <h3>Request sent</h3>
+          <p id="done-copy">Thanks! We'll email you to confirm availability and your total.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reviews">
+    <div class="wrap">
+      <h2>Rated 4.75 by 93 guests</h2>
+      <p>Our reviews live on Airbnb, where every one comes from a verified stay.</p>
+      <div class="score"><div><strong>4.9</strong><span>Check-in</span></div><div><strong>4.9</strong><span>Communication</span></div><div><strong>4.9</strong><span>Location</span></div><div><strong>4.7</strong><span>Accuracy</span></div></div>
+      <a class="btn btn-quiet" href="https://www.airbnb.ca/h/scenicchalet" rel="noopener">Read the reviews on Airbnb</a>
+    </div>
+  </div>
+
+  <section id="faq">
+    <div class="wrap faq">
+      <h2>Good to know</h2>
+      <div style="margin-top:28px">
+        <details><summary>What are check-in and check-out times?</summary><p>Check-in is from [4:00 PM] and check-out is by [11:00 AM]. Check-in is self-serve with a keypad, and we send the code before you arrive.</p></details>
+        <details><summary>Is there a minimum stay?</summary><p>[Two nights on weekends, three nights on holiday weekends.]</p></details>
+        <details><summary>How do payment and deposits work?</summary><p>Once we confirm your dates, we send a secure payment link. [A refundable damage deposit of $___ is held and released after checkout.]</p></details>
+        <details><summary>What is the cancellation policy?</summary><p>[Full refund up to 30 days before arrival; 50% up to 14 days before.]</p></details>
+        <details><summary>How many people can stay?</summary><p>Up to 16 guests, including children. The Town of The Blue Mountains enforces this limit, with fines of $500 to $1,000.</p></details>
+        <details><summary>Can we bring a pet?</summary><p>Yes. There's a $100 cleaning fee per pet, and pets need to be added to your booking.</p></details>
+        <details><summary>What are the house rules?</summary><p>Quiet hours start at 10 pm, and no shoes inside, please. The hot tub is open 7 am to 11 pm under the Town bylaw. At the fire pit, burn only dry, seasoned firewood, put it out fully with water, and skip it on windy days.</p></details>
+        <details><summary>Do we need winter tires?</summary><p>Yes, from about December to April. The chalet is at the top of the mountain and the roads up can be icy.</p></details>
+        <details><summary>Can I work remotely from the chalet?</summary><p>There's free Wi-Fi, but cell signal is weaker at the top of the mountain, so plan calls around the Wi-Fi.</p></details>
+        <details><summary>Is the home suitable for young children?</summary><p>Families are welcome, but the home isn't child-proofed. There's a deck, a hot tub, a fire pit and stairs, so young children need an adult with them.</p></details>
+        <details><summary>Are there cameras or monitors?</summary><p>Exterior security cameras cover the front, back and driveway. A noise monitor in the common areas measures volume only and doesn't record conversations.</p></details>
+        <details><summary>Anything else we should know?</summary><p>It's an older home near farmland and woods. We do regular pest control, but ladybugs or flies can get in, so please keep doors and screens closed. In winter, the BBQ can be slow in the cold and should be cleaned after each use.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top">Georgian Bay View Chalet</a>
+      <p>Swiss Meadows, The Blue Mountains, Ontario</p>
+      <p>Short-term rental licence: LCSTR20220000062</p>
+    </div>
+    <div>
+      <p>Questions? Email <a href="mailto:scenicblue167@gmail.com">scenicblue167@gmail.com</a></p>
+      <p><a href="#book">Check dates</a></p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Photo viewer">
+  <img id="lb-img" alt="" />
+  <p id="lb-cap"></p>
+  <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous photo">‹</button>
+  <button class="lb-btn lb-next" id="lb-next" aria-label="Next photo">›</button>
+  <button class="lb-btn lb-close" id="lb-close" aria-label="Close">×</button>
+</dialog>
+
+<script>
+// Booking requests are emailed through FormSubmit (formsubmit.co).
+// After you activate it, replace the email in BOOKING_ENDPOINT with the random code FormSubmit gives you,
+// so your address isn't visible in the page code.
+const OWNER_EMAIL = "scenicblue167@gmail.com";
+const BOOKING_ENDPOINT = "https://formsubmit.co/ajax/scenicblue167@gmail.com";
+const RATES = { weekday: 600, weekend: 1400, cleaning: 350, pet: 100, maxGuests: 16 };
+const money = n => new Intl.NumberFormat("en-CA",{style:"currency",currency:"CAD",maximumFractionDigits:0}).format(n);
+const iso = d => d.toISOString().slice(0,10);
+const today = new Date(); today.setHours(12,0,0,0);
+
+for (const sel of document.querySelectorAll('select[name="guests"]')) {
+  for (let g = 1; g <= RATES.maxGuests; g++) sel.add(new Option(`${g} guest${g>1?"s":""}`, g, g===8, g===8));
+}
+for (const inp of document.querySelectorAll('input[type="date"]')) inp.min = iso(today);
+
+const book = document.getElementById("booking");
+const est = document.getElementById("estimate");
+
+function quote(inV, outV){
+  if(!inV || !outV) return null;
+  const a = new Date(inV+"T12:00"), b = new Date(outV+"T12:00");
+  const nights = Math.round((b-a)/864e5);
+  if(nights < 1) return {error:"Check out must be after check in."};
+  let wk=0, we=0;
+  for(let i=0;i<nights;i++){ const d=new Date(a); d.setDate(a.getDate()+i); const day=d.getDay(); (day===5||day===6)?we++:wk++; }
+  const pets=+(book.pets?.value||0);
+  return {nights, wk, we, pets, total: wk*RATES.weekday + we*RATES.weekend + RATES.cleaning + pets*RATES.pet};
+}
+function renderQuote(){
+  const q = quote(book.in.value, book.out.value);
+  if(!q){ est.innerHTML='<p class="empty">Choose your dates to see an estimate.</p>'; return; }
+  if(q.error){ est.innerHTML=`<p class="empty">${q.error}</p>`; return; }
+  let h="";
+  if(q.wk) h+=`<div class="line"><span>${q.wk} weeknight${q.wk>1?"s":""} × ${money(RATES.weekday)}</span><span>${money(q.wk*RATES.weekday)}</span></div>`;
+  if(q.we) h+=`<div class="line"><span>${q.we} weekend night${q.we>1?"s":""} × ${money(RATES.weekend)}</span><span>${money(q.we*RATES.weekend)}</span></div>`;
+  h+=`<div class="line"><span>Cleaning fee</span><span>${money(RATES.cleaning)}</span></div>`;
+  if(q.pets) h+=`<div class="line"><span>Pet fee × ${q.pets}</span><span>${money(q.pets*RATES.pet)}</span></div>`;
+  h+=`<div class="line total"><span>Estimate for ${q.nights} night${q.nights>1?"s":""}</span><span>${money(q.total)}</span></div>`;
+  est.innerHTML=h;
+}
+book.in.addEventListener("change",()=>{ if(book.in.value){ const n=new Date(book.in.value+"T12:00"); n.setDate(n.getDate()+1); book.out.min=iso(n); if(!book.out.value||book.out.value<=book.in.value) book.out.value=iso(new Date(n.getTime()+864e5)); } renderQuote(); });
+book.out.addEventListener("change",renderQuote);
+book.pets.addEventListener("change",renderQuote);
+
+document.getElementById("quick").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f=e.target;
+  book.in.value=f.in.value; book.out.value=f.out.value; book.guests.value=f.guests.value;
+  renderQuote();
+  document.getElementById("book").scrollIntoView();
+  book.name.focus({preventScroll:true});
+});
+
+book.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const err=document.getElementById("err");
+  const btn=book.querySelector('button[type="submit"]');
+  const q=quote(book.in.value,book.out.value);
+  let msg="";
+  if(!q) msg="Choose your check-in and check-out dates.";
+  else if(q.error) msg=q.error;
+  else if(!book.name.value.trim()) msg="Add your full name so we know who's booking.";
+  else if(!book.email.checkValidity()||!book.email.value) msg="Add a valid email so we can confirm your stay.";
+  err.textContent=msg; err.style.display=msg?"block":"none";
+  if(msg) return;
+  if(book._honey.value) return; // spam bot
+
+  const fmt=v=>new Date(v+"T12:00").toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
+  const data={
+    _subject:`Booking request: ${fmt(book.in.value)} to ${fmt(book.out.value)} (${book.guests.value} guests)`,
+    _template:"table",
+    Name:book.name.value.trim(),
+    email:book.email.value.trim(),
+    Phone:book.phone.value.trim()||"Not given",
+    "Check in":fmt(book.in.value),
+    "Check out":fmt(book.out.value),
+    Nights:q.nights,
+    Guests:book.guests.value,
+    Pets:book.pets.value,
+    "Estimate (CAD)":money(q.total)+` (${q.wk} weeknight, ${q.we} weekend, cleaning${q.pets?", pet fee":""})`,
+    Notes:book.notes.value.trim()||"None"
+  };
+  btn.disabled=true; btn.textContent="Sending…";
+  try{
+    const r=await fetch(BOOKING_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||String(j.success)==="false") throw new Error(j.message||r.status);
+    document.getElementById("done-copy").textContent=`Thanks, ${data.Name.split(" ")[0]}! We've got your request for ${data["Check in"]} to ${data["Check out"]}. We'll email ${data.email} to confirm availability and your total, usually within a day.`;
+    document.getElementById("formbox").classList.add("sent");
+  }catch(x){
+    err.innerHTML=`Your request didn't go through. Try again, or email us at <a href="mailto:${OWNER_EMAIL}">${OWNER_EMAIL}</a>.`;
+    err.style.display="block";
+  }finally{ btn.disabled=false; btn.textContent="Send booking request"; }
+});
+
+// Lightbox
+const shots=[...document.querySelectorAll("#gallery button")];
+const lb=document.getElementById("lb"), lbImg=document.getElementById("lb-img"), lbCap=document.getElementById("lb-cap");
+let cur=0;
+function show(i){ cur=(i+shots.length)%shots.length; const im=shots[cur].querySelector("img"); lbImg.src=im.src; lbImg.alt=im.alt; lbCap.textContent=im.alt; }
+shots.forEach((b,i)=>b.addEventListener("click",()=>{ show(i); lb.showModal(); }));
+document.getElementById("lb-prev").onclick=()=>show(cur-1);
+document.getElementById("lb-next").onclick=()=>show(cur+1);
+document.getElementById("lb-close").onclick=()=>lb.close();
+lb.addEventListener("click",e=>{ if(e.target===lb) lb.close(); });
+document.addEventListener("keydown",e=>{ if(!lb.open) return; if(e.key==="ArrowLeft") show(cur-1); if(e.key==="ArrowRight") show(cur+1); });
+</script>
+</body>
+</html>
