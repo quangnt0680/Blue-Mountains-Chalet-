@@ -107,7 +107,7 @@ export async function airbnbBookings() {
   const url = env("AIRBNB_ICAL_URL");
   if (!url) return [];
   const res = await fetch(url, { headers: { "User-Agent": "GeorgianBayViewChalet/1.0" } });
-  if (!res.ok) throw new Error("Couldn't read the Airbnb calendar.");
+  if (!res.ok) throw new Error(`Airbnb calendar link returned HTTP ${res.status}. Check the link is the Export calendar link (ends in .ics).`);
   return parseICS(await res.text());
 }
 

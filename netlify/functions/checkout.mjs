@@ -24,15 +24,15 @@ export default async (req) => {
   if (q.error) return json({ error: q.error }, 400);
 
   // Availability: Airbnb calendar + holds/bookings already made on this website.
+  // If a calendar can't be read, the booking still goes through as a hold and the owner
+  // checks the dates before approving (noted in the booking details).
   const start = parseDay(b.checkin), end = parseDay(b.checkout);
-  try {
-    const [air, web] = await Promise.all([airbnbBookings(), websiteBookings()]);
-    if (overlaps(start, end, air) || overlaps(start, end, web))
-      return json({ error: "Sorry, some of those nights are already booked. Try different dates.", unavailable: true }, 409);
-  } catch (e) {
-    console.error(e);
-    return json({ error: "We couldn't check availability right now. Please try again in a minute." }, 503);
-  }
+  const [air, web] = await Promise.allSettled([airbnbBookings(), websiteBookings()]);
+  if (air.status === "rejected") console.error("Airbnb calendar:", air.reason?.message);
+  if (web.status === "rejected") console.error("Website bookings:", web.reason?.message);
+  if ((air.status === "fulfilled" && overlaps(start, end, air.value)) || (web.status === "fulfilled" && overlaps(start, end, web.value)))
+    return json({ error: "Sorry, some of those nights are already booked. Try different dates.", unavailable: true }, 409);
+  const checkNote = air.status === "rejected" || web.status === "rejected" ? "NOT CHECKED, confirm dates on Airbnb before approving" : "Checked";
 
   const line = (label, amount, quantity = 1) => ({ quantity, price_data: { currency: "cad", unit_amount: amount * 100, product_data: { name: label } } });
   const items = [];
@@ -43,7 +43,7 @@ export default async (req) => {
 
   const metadata = {
     chalet_booking: "1", checkin: b.checkin, checkout: b.checkout, nights: q.nights,
-    guests, pets, name, phone, notes: notes || "None",
+    guests, pets, name, phone, notes: notes || "None", availability: checkNote,
   };
   const origin = new URL(req.url).origin;
   try {

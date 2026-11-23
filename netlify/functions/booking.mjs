@@ -13,7 +13,7 @@ export default async (req) => {
     return json({
       name: m.name, email: s.customer_details?.email || s.customer_email, phone: m.phone,
       checkin: m.checkin, checkout: m.checkout, nights: m.nights, guests: m.guests, pets: m.pets,
-      notes: m.notes, total: (s.amount_total || 0) / 100, live: s.livemode,
+      notes: m.notes, availability: m.availability, total: (s.amount_total || 0) / 100, live: s.livemode,
     });
   } catch (e) {
     console.error(e);

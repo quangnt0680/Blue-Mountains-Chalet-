@@ -602,7 +602,7 @@ book.addEventListener("submit",async e=>{
       await notifyOwner(`${d.live?"":"[TEST] "}NEW HOLD, approve in Stripe: ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)} (${d.guests} guests)`,{
         Action:"Open Stripe > Payments > Uncaptured. Click Capture to approve, or Cancel to decline. Holds expire after 7 days.",
         Name:d.name,email:d.email,Phone:d.phone||"Not given","Check in":fmtDay(d.checkin),"Check out":fmtDay(d.checkout),
-        Nights:d.nights,Guests:d.guests,Pets:d.pets,"Amount held (CAD)":money(d.total),Notes:d.notes||"None"}).catch(()=>{});
+        Nights:d.nights,Guests:d.guests,Pets:d.pets,"Availability check":d.availability||"Checked","Amount held (CAD)":money(d.total),Notes:d.notes||"None"}).catch(()=>{});
       try{ sessionStorage.setItem("notified-"+id,"1"); }catch(_){}
     }
     history.replaceState(null,"",location.pathname+"#book");

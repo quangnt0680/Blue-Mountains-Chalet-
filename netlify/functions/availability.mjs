@@ -4,7 +4,8 @@ import { websiteBookings, airbnbBookings, isoDay, json } from "../lib/booking.mj
 
 export default async () => {
   try {
-    const [air, web] = await Promise.all([airbnbBookings(), websiteBookings()]);
+    const res = await Promise.allSettled([airbnbBookings(), websiteBookings()]);
+    const [air, web] = res.map((r) => (r.status === "fulfilled" ? r.value : []));
     const today = new Date(); today.setUTCHours(0, 0, 0, 0);
     const booked = [...air, ...web].filter((r) => r.end > today).map((r) => [isoDay(r.start), isoDay(r.end)]);
     return json({ booked });
