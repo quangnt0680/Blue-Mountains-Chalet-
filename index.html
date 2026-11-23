@@ -576,7 +576,7 @@ book.addEventListener("submit",async e=>{
     try{ r=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}); }catch(_){}
     const j=r?await r.json().catch(()=>null):null;
     if(j&&j.url){ location.href=j.url; return; }
-    if(j&&j.error){ showErr(j.error); return; }
+    if(j&&j.error){ showErr(j.error+(j.detail?`<br><small>Stripe says: ${j.detail.replace(/[<>&]/g,"")}</small>`:"")); return; }
     // Checkout isn't available on this host: send the request by email instead.
     await notifyOwner(`Booking request: ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)} (${body.guests} guests)`,{
       Name:body.name,email:body.email,Phone:body.phone||"Not given","Check in":fmtDay(body.checkin),"Check out":fmtDay(body.checkout),

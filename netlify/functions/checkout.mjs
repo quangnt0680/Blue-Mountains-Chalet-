@@ -61,7 +61,7 @@ export default async (req) => {
         },
         metadata,
         custom_text: { submit: { message: "Your card is held, not charged. We'll approve your stay within 24 hours, and only then is it charged. If we can't host you, the hold is released." } },
-        expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+        expires_at: Math.floor(Date.now() / 1000) + 60 * 60, // Stripe requires at least 30 minutes
         success_url: `${origin}/?booking=held&session_id={CHECKOUT_SESSION_ID}#book`,
         cancel_url: `${origin}/?booking=cancelled#book`,
       },
@@ -69,7 +69,8 @@ export default async (req) => {
     return json({ url: session.url });
   } catch (e) {
     console.error(e);
-    return json({ error: "We couldn't open the payment page. Please try again, or email us." }, 502);
+    const detail = String(e.message || "").replace(/sk_[a-z]+_\S+/g, "sk_***").slice(0, 300);
+    return json({ error: "We couldn't open the payment page. Please try again, or email us.", detail }, 502);
   }
 };
 
