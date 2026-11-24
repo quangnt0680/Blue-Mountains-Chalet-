@@ -4,3 +4,16 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Keep the code and price files private: only the website pages and photos are public.
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404"
+  status = 404
+  force = true

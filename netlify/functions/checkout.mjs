@@ -36,8 +36,7 @@ export default async (req) => {
 
   const line = (label, amount, quantity = 1) => ({ quantity, price_data: { currency: "cad", unit_amount: amount * 100, product_data: { name: label } } });
   const items = [];
-  if (q.wk) items.push(line(`Weeknight (Sun–Thu) × ${q.wk}`, RATES.weekday, q.wk));
-  if (q.we) items.push(line(`Weekend night (Fri–Sat) × ${q.we}`, RATES.weekend, q.we));
+  items.push(line(`Stay: ${fmt(b.checkin)} to ${fmt(b.checkout)} (${q.nights} nights)`, q.stay));
   items.push(line("Cleaning fee", RATES.cleaning));
   if (pets) items.push(line(`Pet fee × ${pets}`, RATES.pet, pets));
 

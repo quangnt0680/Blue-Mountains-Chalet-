@@ -1,14 +1,26 @@
 // Shared booking logic for the Netlify functions.
 // Prices are always worked out here, on the server, so a guest can't change them in their browser.
 
+import { PRICES } from "./prices.mjs";
+
 export const RATES = {
-  weekday: 600,   // Sunday to Thursday nights, CAD
-  weekend: 1400,  // Friday and Saturday nights, CAD
-  cleaning: 350,  // once per stay
-  pet: 100,       // per pet
+  cleaning: PRICES.cleaning_fee,
+  pet: PRICES.pet_fee,
   maxGuests: 16,
   maxPets: 2,
 };
+
+// Price of one night, starting on date d (UTC).
+export function nightPrice(d) {
+  const iso = d.toISOString().slice(0, 10);
+  const special = PRICES.special_nights?.[iso];
+  if (Number.isFinite(special)) return special;
+  const m = PRICES.months?.[iso.slice(0, 7)] || PRICES.default;
+  const day = d.getUTCDay();
+  const price = day === 5 || day === 6 ? m.weekend : m.weeknight;
+  if (!Number.isFinite(price) || price <= 0) throw new Error(`Missing price for ${iso}. Check prices.mjs.`);
+  return price;
+}
 
 const env = (name) => (typeof Netlify !== "undefined" ? Netlify.env.get(name) : undefined) ?? process.env[name];
 export const MIN_NIGHTS = () => Math.max(1, parseInt(env("MIN_NIGHTS") || "1", 10));
@@ -31,13 +43,11 @@ export function quote(checkin, checkout, pets = 0) {
   if (nights > 30) return { error: "For stays over 30 nights, please email us." };
   const today = new Date(); today.setUTCHours(0, 0, 0, 0);
   if (a < new Date(today - DAY)) return { error: "Check in can't be in the past." };
-  let wk = 0, we = 0;
-  for (let i = 0; i < nights; i++) {
-    const day = new Date(a.getTime() + i * DAY).getUTCDay();
-    day === 5 || day === 6 ? we++ : wk++;
-  }
-  const total = wk * RATES.weekday + we * RATES.weekend + RATES.cleaning + pets * RATES.pet;
-  return { nights, wk, we, pets, total };
+  let stay = 0;
+  for (let i = 0; i < nights; i++) stay += nightPrice(new Date(a.getTime() + i * DAY));
+  const petFee = pets * RATES.pet;
+  const total = stay + RATES.cleaning + petFee;
+  return { nights, pets, stay, cleaning: RATES.cleaning, petFee, total };
 }
 
 // ---------- Stripe (plain REST calls, no extra packages needed) ----------

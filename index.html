@@ -55,17 +55,11 @@ p{margin:0}
 .hero{position:relative;min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,30,44,.55) 0%,rgba(9,30,44,.08) 30%,rgba(9,30,44,0) 50%,rgba(9,30,44,.55) 100%);z-index:1}
-.hero-copy{position:relative;z-index:2;padding-top:130px;margin-bottom:auto}
+.hero-copy{position:relative;z-index:2;padding-top:130px;padding-bottom:56px;margin-bottom:auto}
 .hero h1{font-size:clamp(40px,6.6vw,84px);max-width:11ch;text-shadow:0 2px 24px rgba(0,30,50,.35)}
 .hero-sub{margin-top:18px;font-size:clamp(17px,1.6vw,20px);max-width:36ch;text-shadow:0 1px 12px rgba(0,30,50,.45)}
 
 /* Quick booking bar sitting on the hero */
-.quick{position:relative;z-index:3;margin-bottom:36px;background:var(--paper);color:var(--ink);border-radius:var(--r-lg);padding:14px;display:grid;grid-template-columns:1fr 1fr .8fr auto;gap:10px;box-shadow:0 18px 50px rgba(8,30,44,.28)}
-.quick label{display:flex;flex-direction:column;gap:2px;padding:8px 14px;border-radius:var(--r-sm);background:var(--mist);font-size:13px;font-weight:600;color:var(--ink-soft)}
-.quick label{min-width:0}
-.quick input,.quick select{width:100%;border:0;background:transparent;font:500 16px var(--sans);color:var(--ink);padding:2px 0;min-width:0}
-.quick .btn{padding-inline:28px}
-@media (max-width:760px){.quick{grid-template-columns:1fr 1fr}.quick .guests{grid-column:1/-1}.quick .btn{grid-column:1/-1;padding-block:15px}}
 
 /* Facts */
 .facts{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
@@ -147,30 +141,11 @@ section{padding-block:clamp(64px,9vw,112px)}
 /* Booking */
 .book{background:var(--paper)}
 .book-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,80px);align-items:start}
-.rates{margin-top:28px;border-collapse:collapse;width:100%;max-width:440px}
-.rates td{padding:12px 0;border-bottom:1px solid var(--line)}
-.rates td:last-child{text-align:right;font-weight:600}
+.incl{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:10px;max-width:440px}
+.incl li{padding:12px 0 12px 22px;border-bottom:1px solid var(--line);position:relative}
+.incl li::before{content:"";position:absolute;left:0;top:22px;width:10px;height:2px;background:var(--sunset)}
 .rates-note{margin-top:12px;font-size:15px;color:var(--ink-soft);max-width:44ch}
-.form{background:var(--mist);border-radius:var(--r-lg);padding:clamp(20px,3vw,32px)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;font-size:14px;font-weight:600}
-.field small{font-weight:400;color:var(--ink-soft)}
-.field input,.field select,.field textarea{font:400 16px var(--sans);color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 12px;width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--bay);outline:none;box-shadow:0 0 0 3px rgba(29,74,99,.18)}
-.estimate{background:var(--paper);border-radius:var(--r-sm);padding:16px 18px;margin:6px 0 18px}
-.estimate .line{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:15px}
-.estimate .total{border-top:1.5px solid var(--ink);margin-top:8px;padding-top:10px;font-weight:700;font-size:17px}
-.estimate .empty{color:var(--ink-soft);font-size:15px}
-.form .btn{width:100%;padding-block:16px;font-size:17px}
-.fine{margin-top:12px;font-size:14px;color:var(--ink-soft);text-align:center}
-.done{display:none;text-align:center;padding:30px 10px}
-.done h3{font-size:28px;margin-bottom:10px}
-.form.sent form{display:none}.form.sent .done{display:block}
-.err{color:#a3341b;font-size:14px;margin:-6px 0 12px;display:none}
-.err a{color:inherit}
-.btn:disabled{opacity:.7;cursor:wait}
 @media (max-width:900px){.book-grid{grid-template-columns:1fr}}
-@media (max-width:480px){.row{grid-template-columns:1fr}}
 
 /* Reviews band */
 .reviews{background:var(--pine);color:#fff;text-align:center;padding-block:clamp(56px,7vw,84px)}
@@ -214,6 +189,14 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
 .score div{min-width:110px}
 .score strong{display:block;font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.1}
 .score span{font-size:14px;opacity:.85}
+.hosp-slot{min-width:0}
+.hosp-slot:not(:has(> *)){display:none}
+.hosp-slot:has(> *){min-height:900px}
+.book-grid:has(.hosp-slot > *) .hosp-pending{display:none}
+.hosp-pending{background:var(--mist);border-radius:var(--r-lg);padding:clamp(20px,3vw,32px);display:grid;gap:14px;align-content:start;justify-items:start}
+.hosp-pending h3{font-size:24px}
+.hero-cta{margin-top:26px}
+.hosp-slot iframe{width:100%;min-height:900px;border:0}
 </style>
 </head>
 <body>
@@ -238,13 +221,8 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
     <div class="wrap hero-copy">
       <h1>Ski all day. Soak with the Bay in view.</h1>
       <p class="hero-sub">A private 6-bedroom chalet for up to 16 guests, at the top of Blue Mountain and 2 minutes from the lifts.</p>
+      <a class="btn btn-book hero-cta" href="#book">Check dates and book</a>
     </div>
-    <form class="wrap quick" id="quick" aria-label="Check your dates">
-      <label>Check in<input type="date" name="in" required /></label>
-      <label>Check out<input type="date" name="out" required /></label>
-      <label class="guests">Guests<select name="guests"></select></label>
-      <button class="btn btn-book" type="submit">See your price</button>
-    </form>
   </div>
 
   <div class="wrap facts" aria-label="Chalet at a glance">
@@ -264,7 +242,7 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
       <ul>
         <li><strong>No booking-site service fee</strong><span>You pay the nightly rate and the cleaning fee shown below.</span></li>
         <li><strong>Talk to the owners</strong><span>Questions about beds, parking or the drive up go straight to Hoa, a Superhost for 8 years who usually replies within an hour.</span></li>
-        <li><strong>Held, not charged, until we approve</strong><span>Book online and Stripe holds your card. We approve within 24 hours, and only then is it charged.</span></li>
+        <li><strong>Book online in minutes</strong><span>Pick your dates, see your total and book securely. We'll email your check-in details before you arrive.</span></li>
       </ul>
     </div>
   </section>
@@ -386,42 +364,32 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
     <div class="wrap book-grid">
       <div>
         <h2>Check dates and book</h2>
-        <p class="lede">Pick your dates to see your total, then book through Stripe's secure checkout. Your card is held, not charged, until we approve your stay, usually within 24 hours.</p>
-        <table class="rates" aria-label="Nightly rates">
-          <tr><td>Sunday to Thursday nights</td><td>$600 / night</td></tr>
-          <tr><td>Friday and Saturday nights</td><td>$1,400 / night</td></tr>
-          <tr><td>Cleaning fee, once per stay</td><td>$350</td></tr>
-          <tr><td>Pet fee, per pet</td><td>$100</td></tr>
-        </table>
-        <p class="rates-note">Prices in Canadian dollars. Holiday rates may differ, and applicable taxes are added when we confirm.</p>
+        <p class="lede">Pick your dates in the calendar to see your total, then book securely online.</p>
+        <ul class="incl">
+          <li>Your total includes the cleaning fee and all linens and towels.</li>
+          <li>No booking-site service fee.</li>
+          <li>The minimum stay, cancellation policy and any deposit are shown before you pay.</li>
+        </ul>
+        <p class="rates-note">Prices in Canadian dollars.</p>
       </div>
 
-      <div class="form" id="formbox">
-        <form id="booking" novalidate>
-          <div class="row">
-            <label class="field">Check in<input type="date" name="in" required /></label>
-            <label class="field">Check out<input type="date" name="out" required /></label>
-          </div>
-          <div class="row">
-            <label class="field">Guests <small>Including children</small><select name="guests" required></select></label>
-            <label class="field">Pets <small>$100 cleaning fee each</small><select name="pets"><option value="0">No pets</option><option value="1">1 pet</option><option value="2">2 pets</option></select></label>
-          </div>
-          <div class="estimate" id="estimate" aria-live="polite"><p class="empty">Choose your dates to see an estimate.</p></div>
-          <div class="row">
-            <label class="field">Full name<input name="name" autocomplete="name" required /></label>
-            <label class="field">Email<input name="email" type="email" autocomplete="email" required /></label>
-          </div>
-          <label class="field">Phone <small>Optional</small><input name="phone" type="tel" autocomplete="tel" /></label>
-          <label class="field">Anything we should know? <small>Optional</small><textarea name="notes" rows="3" placeholder="Arrival time, ski plans, kids' ages, questions"></textarea></label>
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
-          <p class="err" id="err"></p>
-          <button class="btn btn-book" type="submit">Continue to secure checkout</button>
-          <p class="fine">Payments by Stripe. Your card is only charged once we approve.</p>
-        </form>
-        <div class="done" role="status">
-          <h3 id="done-title">Request sent</h3>
-          <p id="done-copy">Thanks! We'll email you to confirm availability and your total.</p>
-        </div>
+      <!-- ============================================================
+           HOSPITABLE BOOKING WIDGET
+           In Hospitable: Direct > Website > your self-hosted site >
+           property's three-dot menu > Copy widget code.
+           Paste the code between the two lines below. While this spot
+           is empty, guests see a note asking them to email you.
+           ============================================================ -->
+      <div class="hosp-slot" id="hospitable-booking">
+<!-- PASTE HOSPITABLE WIDGET CODE BELOW THIS LINE -->
+
+<!-- PASTE HOSPITABLE WIDGET CODE ABOVE THIS LINE -->
+      </div>
+
+      <div class="hosp-pending">
+        <h3>Online booking opens soon</h3>
+        <p>To book now, email us your dates and number of guests at <strong>scenicblue167@gmail.com</strong> and we'll reply with your total.</p>
+        <a class="btn btn-quiet" href="mailto:scenicblue167@gmail.com?subject=Booking%20request">Email us</a>
       </div>
     </div>
   </section>
@@ -441,7 +409,7 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
       <div style="margin-top:28px">
         <details><summary>What are check-in and check-out times?</summary><p>Check-in is from [4:00 PM] and check-out is by [11:00 AM]. Check-in is self-serve with a keypad, and we send the code before you arrive.</p></details>
         <details><summary>Is there a minimum stay?</summary><p>[Two nights on weekends, three nights on holiday weekends.]</p></details>
-        <details><summary>How does payment work?</summary><p>You pay through Stripe's secure checkout. Your card is held for the full amount but not charged. We review every booking and approve it within 24 hours, and only then is your card charged. If we can't host you, the hold is released and you pay nothing. [A refundable damage deposit of $___ is charged before arrival and returned after checkout.]</p></details>
+        <details><summary>How does payment work?</summary><p>You pay securely online when you book. Your confirmation email shows the full amount, the cancellation policy and any deposit. [A refundable damage deposit of $___ is charged before arrival and returned after checkout.]</p></details>
         <details><summary>What is the cancellation policy?</summary><p>[Full refund up to 30 days before arrival; 50% up to 14 days before.]</p></details>
         <details><summary>How many people can stay?</summary><p>Up to 16 guests, including children. The Town of The Blue Mountains enforces this limit, with fines of $500 to $1,000.</p></details>
         <details><summary>Can we bring a pet?</summary><p>Yes. There's a $100 cleaning fee per pet, and pets need to be added to your booking.</p></details>
@@ -479,139 +447,13 @@ dialog.lb p{color:#fff;text-align:center;margin-top:10px}
 </dialog>
 
 <script>
-// Booking requests are emailed through FormSubmit (formsubmit.co).
-// After you activate it, replace the email in BOOKING_ENDPOINT with the random code FormSubmit gives you,
-// so your address isn't visible in the page code.
-const OWNER_EMAIL = "scenicblue167@gmail.com";
-const BOOKING_ENDPOINT = "https://formsubmit.co/ajax/scenicblue167@gmail.com";
-const RATES = { weekday: 600, weekend: 1400, cleaning: 350, pet: 100, maxGuests: 16 };
-const money = n => new Intl.NumberFormat("en-CA",{style:"currency",currency:"CAD",maximumFractionDigits:0}).format(n);
-const iso = d => d.toISOString().slice(0,10);
-const today = new Date(); today.setHours(12,0,0,0);
-
-for (const sel of document.querySelectorAll('select[name="guests"]')) {
-  for (let g = 1; g <= RATES.maxGuests; g++) sel.add(new Option(`${g} guest${g>1?"s":""}`, g, g===8, g===8));
-}
-for (const inp of document.querySelectorAll('input[type="date"]')) inp.min = iso(today);
-
-const book = document.getElementById("booking");
-const est = document.getElementById("estimate");
-
-function quote(inV, outV){
-  if(!inV || !outV) return null;
-  const a = new Date(inV+"T12:00"), b = new Date(outV+"T12:00");
-  const nights = Math.round((b-a)/864e5);
-  if(nights < 1) return {error:"Check out must be after check in."};
-  let wk=0, we=0;
-  for(let i=0;i<nights;i++){ const d=new Date(a); d.setDate(a.getDate()+i); const day=d.getDay(); (day===5||day===6)?we++:wk++; }
-  const pets=+(book.pets?.value||0);
-  return {nights, wk, we, pets, total: wk*RATES.weekday + we*RATES.weekend + RATES.cleaning + pets*RATES.pet};
-}
-function renderQuote(){
-  const q = quote(book.in.value, book.out.value);
-  if(!q){ est.innerHTML='<p class="empty">Choose your dates to see an estimate.</p>'; return; }
-  if(q.error){ est.innerHTML=`<p class="empty">${q.error}</p>`; return; }
-  let h="";
-  if(q.wk) h+=`<div class="line"><span>${q.wk} weeknight${q.wk>1?"s":""} × ${money(RATES.weekday)}</span><span>${money(q.wk*RATES.weekday)}</span></div>`;
-  if(q.we) h+=`<div class="line"><span>${q.we} weekend night${q.we>1?"s":""} × ${money(RATES.weekend)}</span><span>${money(q.we*RATES.weekend)}</span></div>`;
-  h+=`<div class="line"><span>Cleaning fee</span><span>${money(RATES.cleaning)}</span></div>`;
-  if(q.pets) h+=`<div class="line"><span>Pet fee × ${q.pets}</span><span>${money(q.pets*RATES.pet)}</span></div>`;
-  h+=`<div class="line total"><span>Estimate for ${q.nights} night${q.nights>1?"s":""}</span><span>${money(q.total)}</span></div>`;
-  est.innerHTML=h;
-}
-book.in.addEventListener("change",()=>{ if(book.in.value){ const n=new Date(book.in.value+"T12:00"); n.setDate(n.getDate()+1); book.out.min=iso(n); if(!book.out.value||book.out.value<=book.in.value) book.out.value=iso(new Date(n.getTime()+864e5)); } renderQuote(); });
-book.out.addEventListener("change",renderQuote);
-book.pets.addEventListener("change",renderQuote);
-
-document.getElementById("quick").addEventListener("submit",e=>{
-  e.preventDefault();
-  const f=e.target;
-  book.in.value=f.in.value; book.out.value=f.out.value; book.guests.value=f.guests.value;
-  renderQuote();
-  document.getElementById("book").scrollIntoView();
-  book.name.focus({preventScroll:true});
-});
-
-const $=id=>document.getElementById(id);
-const fmtDay=v=>new Date(v+"T12:00").toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
-function showErr(html){ const err=$("err"); err.innerHTML=html; err.style.display=html?"block":"none"; }
-function showDone(title,text){ $("done-title").textContent=title; $("done-copy").textContent=text; $("formbox").classList.add("sent"); $("book").scrollIntoView(); }
-
-// Booked dates from Airbnb and this website, to warn guests before checkout.
-let booked=null;
-fetch("/api/availability").then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.booked){ booked=j.booked; checkDates(); } }).catch(()=>{});
-function checkDates(){
-  if(!booked||!book.in.value||!book.out.value) return true;
-  const clash=booked.some(([s,e])=>book.in.value<e&&s<book.out.value);
-  showErr(clash?"Some of those nights are already booked. Try different dates.":"");
-  return !clash;
-}
-book.in.addEventListener("change",checkDates); book.out.addEventListener("change",checkDates);
-
-// Email the owner (via FormSubmit). Used for new holds and as a fallback request.
-async function notifyOwner(subject,fields){
-  const r=await fetch(BOOKING_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:subject,_template:"table",...fields})});
-  const j=await r.json().catch(()=>({}));
-  if(!r.ok||String(j.success)==="false") throw new Error(j.message||r.status);
-}
-
-book.addEventListener("submit",async e=>{
-  e.preventDefault();
-  const btn=book.querySelector('button[type="submit"]');
-  const q=quote(book.in.value,book.out.value);
-  let msg="";
-  if(!q) msg="Choose your check-in and check-out dates.";
-  else if(q.error) msg=q.error;
-  else if(!book.name.value.trim()) msg="Add your full name so we know who's booking.";
-  else if(!book.email.checkValidity()||!book.email.value) msg="Add a valid email so we can confirm your stay.";
-  showErr(msg);
-  if(msg||!checkDates()) return;
-  if(book._honey.value) return; // spam bot
-
-  const body={checkin:book.in.value,checkout:book.out.value,guests:book.guests.value,pets:book.pets.value,
-    name:book.name.value.trim(),email:book.email.value.trim(),phone:book.phone.value.trim(),notes:book.notes.value.trim()};
-  btn.disabled=true; btn.textContent="Opening secure checkout…";
-  try{
-    let r=null;
-    try{ r=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}); }catch(_){}
-    const j=r?await r.json().catch(()=>null):null;
-    if(j&&j.url){ location.href=j.url; return; }
-    if(j&&j.error){ showErr(j.error+(j.detail?`<br><small>Stripe says: ${j.detail.replace(/[<>&]/g,"")}</small>`:"")); return; }
-    // Checkout isn't available on this host: send the request by email instead.
-    await notifyOwner(`Booking request: ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)} (${body.guests} guests)`,{
-      _autoresponse:`Hi ${body.name.split(" ")[0]},\n\nThanks for your booking request for Georgian Bay View Chalet, ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)}. We'll check availability and email you your total, usually within a day.\n\nHoa\nGeorgian Bay View Chalet, The Blue Mountains`,
-      Name:body.name,email:body.email,Phone:body.phone||"Not given","Check in":fmtDay(body.checkin),"Check out":fmtDay(body.checkout),
-      Nights:q.nights,Guests:body.guests,Pets:body.pets,"Estimate (CAD)":money(q.total),Notes:body.notes||"None"});
-    showDone("Request sent",`Thanks, ${body.name.split(" ")[0]}! We've got your request for ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)}. We'll email ${body.email} to confirm availability and your total, usually within a day.`);
-  }catch(x){
-    showErr(`Your booking didn't go through. Try again, or email us at <a href="mailto:${OWNER_EMAIL}">${OWNER_EMAIL}</a>.`);
-  }finally{ btn.disabled=false; btn.textContent="Continue to secure checkout"; }
-});
-
-// Back from Stripe checkout.
-(async()=>{
-  const p=new URLSearchParams(location.search);
-  if(p.get("booking")==="cancelled"){ showErr("Checkout was cancelled, so your card wasn't held. Your dates are still free to book."); return; }
-  const id=p.get("session_id");
-  if(p.get("booking")!=="held"||!id) return;
-  try{
-    const r=await fetch("/api/booking?session_id="+encodeURIComponent(id)); if(!r.ok) throw 0;
-    const d=await r.json();
-    showDone("Your card is on hold",`Thanks, ${(d.name||"").split(" ")[0]}! We've received your booking for ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)}. Your card is held for ${money(d.total)} but not charged. We'll review it and email ${d.email} within 24 hours. Your card is only charged once we approve.`);
-    let sent=false; try{ sent=sessionStorage.getItem("notified-"+id)==="1"; }catch(_){}
-    if(!sent){
-      await notifyOwner(`${d.live?"":"[TEST] "}NEW HOLD, approve in Stripe: ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)} (${d.guests} guests)`,{
-        _autoresponse:`Hi ${(d.name||"").split(" ")[0]},\n\nThank you for booking Georgian Bay View Chalet for ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)} (${d.nights} nights, ${d.guests} guests).\n\nYour card is on hold for ${money(d.total)} CAD but has not been charged. We'll review your booking and confirm by email within 24 hours. Your card is only charged once we approve. If we can't host you, the hold is released and you pay nothing.\n\nQuestions? Just reply to this email.\n\nHoa\nGeorgian Bay View Chalet, The Blue Mountains`,
-        Action:"Open Stripe > Payments > Uncaptured. Click Capture to approve, or Cancel to decline. Holds expire after 7 days.",
-        Name:d.name,email:d.email,Phone:d.phone||"Not given","Check in":fmtDay(d.checkin),"Check out":fmtDay(d.checkout),
-        Nights:d.nights,Guests:d.guests,Pets:d.pets,"Availability check":d.availability||"Checked","Amount held (CAD)":money(d.total),Notes:d.notes||"None"}).catch(()=>{});
-      try{ sessionStorage.setItem("notified-"+id,"1"); }catch(_){}
-    }
-    history.replaceState(null,"",location.pathname+"#book");
-  }catch(_){
-    showDone("Your card is on hold","Thanks! We've received your booking. Your card is held but not charged. We'll email you within 24 hours to confirm.");
+// Hospitable's script to size its booking frame to its content.
+window.addEventListener("message", function (event) {
+  if (event.data && event.data.iframeHeight) {
+    var iframe = document.getElementById("booking-iframe");
+    if (iframe) iframe.style.height = event.data.iframeHeight + "px";
   }
-})();
+});
 
 // Lightbox
 const shots=[...document.querySelectorAll("#gallery button")];
