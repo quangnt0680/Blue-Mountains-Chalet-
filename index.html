@@ -579,6 +579,7 @@ book.addEventListener("submit",async e=>{
     if(j&&j.error){ showErr(j.error+(j.detail?`<br><small>Stripe says: ${j.detail.replace(/[<>&]/g,"")}</small>`:"")); return; }
     // Checkout isn't available on this host: send the request by email instead.
     await notifyOwner(`Booking request: ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)} (${body.guests} guests)`,{
+      _autoresponse:`Hi ${body.name.split(" ")[0]},\n\nThanks for your booking request for Georgian Bay View Chalet, ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)}. We'll check availability and email you your total, usually within a day.\n\nHoa\nGeorgian Bay View Chalet, The Blue Mountains`,
       Name:body.name,email:body.email,Phone:body.phone||"Not given","Check in":fmtDay(body.checkin),"Check out":fmtDay(body.checkout),
       Nights:q.nights,Guests:body.guests,Pets:body.pets,"Estimate (CAD)":money(q.total),Notes:body.notes||"None"});
     showDone("Request sent",`Thanks, ${body.name.split(" ")[0]}! We've got your request for ${fmtDay(body.checkin)} to ${fmtDay(body.checkout)}. We'll email ${body.email} to confirm availability and your total, usually within a day.`);
@@ -600,6 +601,7 @@ book.addEventListener("submit",async e=>{
     let sent=false; try{ sent=sessionStorage.getItem("notified-"+id)==="1"; }catch(_){}
     if(!sent){
       await notifyOwner(`${d.live?"":"[TEST] "}NEW HOLD, approve in Stripe: ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)} (${d.guests} guests)`,{
+        _autoresponse:`Hi ${(d.name||"").split(" ")[0]},\n\nThank you for booking Georgian Bay View Chalet for ${fmtDay(d.checkin)} to ${fmtDay(d.checkout)} (${d.nights} nights, ${d.guests} guests).\n\nYour card is on hold for ${money(d.total)} CAD but has not been charged. We'll review your booking and confirm by email within 24 hours. Your card is only charged once we approve. If we can't host you, the hold is released and you pay nothing.\n\nQuestions? Just reply to this email.\n\nHoa\nGeorgian Bay View Chalet, The Blue Mountains`,
         Action:"Open Stripe > Payments > Uncaptured. Click Capture to approve, or Cancel to decline. Holds expire after 7 days.",
         Name:d.name,email:d.email,Phone:d.phone||"Not given","Check in":fmtDay(d.checkin),"Check out":fmtDay(d.checkout),
         Nights:d.nights,Guests:d.guests,Pets:d.pets,"Availability check":d.availability||"Checked","Amount held (CAD)":money(d.total),Notes:d.notes||"None"}).catch(()=>{});
